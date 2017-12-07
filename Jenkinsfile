@@ -1,10 +1,30 @@
-node
-{
-  
-stage 'devops'
-echo 'jenkins task '
-stage 'test'
-echo 'jenkins'
-stage 'deploy'
-echo 'done'
+#!/usr/bin/env groovy
+properties([
+   [$class: 'GithubProjectProperty',
+   displayName: '',
+   projectUrlStr: 'https://git@github.com:varun-demo-organization/demo_4.git/'],
+   pipelineTriggers([githubPush()])])
+
+pipeline {
+   agent any
+
+   stages {
+       stage('Build') {
+           steps {
+               sh 'pwd'
+           }
+       }
+       stage('Test'){
+           steps {
+               sh 'java -version'
+               
+           }
+       }
+       stage('Deploy') {
+           steps {
+               sh 'ls'
+               sh 'pwd'
+           }
+       }
+   }
 }
